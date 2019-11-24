@@ -12,11 +12,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".RefreshService"></service>
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/wallpaper" />
+
+        <service android:name=".RefreshService" />
+        <service
+            android:name=".YambaWallpaper"
+            android:icon="@drawable/ic_launcher_background"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/wallpaper" />
+        </service>
+
         <provider
-            android:authorities="com.example.yamba.StatusProvider"
             android:name=".StatusProvider"
+            android:authorities="com.example.yamba.StatusProvider"
             android:exported="false" />
+
         <activity android:name=".StatusActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".DetailsActivity" />
@@ -27,27 +46,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.example.yamba.YambaWidget"
-            android:exported="false" >
+            android:name=".YambaWidget"
+            android:exported="false">
             <intent-filter>
                 <action android:name="NEW_STATUSES" />
             </intent-filter>
             <intent-filter>
-                <action android:name=
-                    "android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/yamba_widget" />
         </receiver>
-
     </application>
 
 </manifest>

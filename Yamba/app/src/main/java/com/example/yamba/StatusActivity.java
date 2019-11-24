@@ -19,5 +19,4 @@ public class StatusActivity extends AppCompatActivity {
         }
         setContentView(R.layout.new_activity_status);
     }
-
 }
